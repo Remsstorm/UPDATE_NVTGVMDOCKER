@@ -1,0 +1,19 @@
+#######is it to update your gvm and data syncro, etc..
+---
+  - name: Playbook
+    hosts: all
+    become: yes
+    become_user: root
+    tasks:
+      - name: update NVTs
+        shell: docker exec -it gvm su - gvm greenbone-nvt-sync
+      - name: update scap-data
+        shell: docker exec -it gvm greenbone-scapdata-sync
+      - name: update cert-data
+        shell: docker exec -it gvm greenbone-certdata-sync
+      - name: update GVM_DATA
+        shell: docker exec -it gvm greenbone-feed-sync --type GVMD_DATA
+      - name: update SCAP
+        shell: docker exec -it gvm greenbone-feed-sync --type SCAP
+      - name: update CERT
+        shell: docker exec -it gvm greenbone-feed-sync --type CERT
